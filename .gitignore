@@ -1,0 +1,9 @@
+/*
+!lisp/
+!.gitignore
+!init.el
+!custom-example.el
+*~
+\#*
+*\#
+*.log
