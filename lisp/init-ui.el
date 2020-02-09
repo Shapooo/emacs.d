@@ -1,3 +1,6 @@
+;;; init-ui.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -5,12 +8,6 @@
   (menu-bar-mode -1))
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1) )
-
-;; (set-face-attribute 'default nil
-;;                     :family "Source Code Pro"
-;;                     :height 115
-;;                     :weight 'medium
-;;                     :width 'medium)
 
 (when (display-graphic-p)
   (set-face-attribute 'default nil
@@ -34,16 +31,16 @@
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-  
+
   ;; Enable custom neotree theme (all-the-icons must be installed!)
   ;; (doom-themes-neotree-config)
   ;; or for treemacs users
   ;; (setq doom-themes-treemacs-theme "doom-colors")
-					; use the colorful treemacs theme
+                                        ; use the colorful treemacs theme
   ;; (doom-themes-treemacs-config)
-  
+
   ;; Corrects (and improves) org-mode's native fontification.
-  ;; (doom-themes-org-config)
-  )
+  (doom-themes-org-config))
 
 (provide 'init-ui)
+;;; init-ui.el ends here

@@ -1,3 +1,19 @@
+;;; init-basic.el ---  -*- lexical-binding: t -*-
+
+;;; COmmentary:
+;;; Code:
+
+(eval-when-compile
+  (require 'init-const)
+  (require 'init-custom))
+
+;; Encoding
+;; UTF-8 as the default coding system
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+
+;; Explicitly set the prefered coding systems to avoid annoying prompt
+;; from emacs (especially on Microsoft Windows)
 (prefer-coding-system 'utf-8)
 
 (set-language-environment 'utf-8)
@@ -42,6 +58,25 @@
                                               extended-command-history)
               savehist-autosave-interval 300))
 
+(use-package simple
+  :ensure nil
+  :hook ((after-init . size-indication-mode)
+         ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
+  :init
+  (setq column-number-mode t
+        line-number-mode t
+        ;; kill-whole-line t               ; Kill line including '\n'
+        line-move-visual nil
+        track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
+        set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
+
+  ;; Visualize TAB, (HARD) SPACE, NEWLINE
+  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
+  (defun enable-trailing-whitespace ()
+    "Show trailing spaces and delete on saving."
+    (setq show-trailing-whitespace t)
+    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)))
+
 ;; Mouse & Smooth Scroll
 ;; Scroll one line at a time (less "jumpy" than defaults)
 (when (display-graphic-p)
@@ -62,7 +97,7 @@
       inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
       delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
       make-backup-files nil             ; Forbide to make backup files
-      auto-save-default nil             ; Disable auto save
+      ;; auto-save-default nil             ; Disable auto save
 
       uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
       adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
@@ -71,3 +106,4 @@
       sentence-end-double-space nil)
 
 (provide 'init-basic)
+;;; init-basic.el ends here

@@ -1,3 +1,7 @@
+;;; init-ivy.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 (use-package counsel
   :diminish ivy-mode counsel-mode
   :bind (;; ("C-s"   . swiper-isearch)
@@ -90,6 +94,42 @@
   (setq swiper-action-recenter t)
 
   (setq counsel-find-file-at-point t
-        counsel-yank-pop-separator "\n────────\n"))
+        counsel-yank-pop-separator "\n────────\n")
+
+  ;; Use the faster search tool: ripgrep (`rg')
+  (when (executable-find "rg")
+    (setq counsel-grep-base-command "rg -S --no-heading --line-number --color never %s %s")
+    (when (and sys/macp (executable-find "gls"))
+      (setq counsel-find-file-occur-use-find nil
+            counsel-find-file-occur-cmd
+            "gls -a | grep -i -E '%s' | tr '\\n' '\\0' | xargs -0 gls -d --group-directories-first")))
+
+  :config
+  (with-no-warnings
+
+    ;; Enhance M-x
+    (use-package amx
+      :init (setq amx-history 20))
+
+    ;; Better sorting and filtering
+    (use-package prescient
+      :commands prescient-persist-mode
+      :init
+      (setq prescient-filter-method '(literal regexp initialism fuzzy))
+      (prescient-persist-mode 1))
+
+    ;; Integrate yasnippet
+    ;; (use-package ivy-yasnippet
+    ;;   :commands ivy-yasnippet--preview
+    ;;   :bind ())
+
+
+
+
+
+
+    )
+  )
 
 (provide 'init-ivy)
+;;; init-ivy ends here

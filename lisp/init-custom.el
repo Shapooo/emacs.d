@@ -1,8 +1,17 @@
-(require 'package)
+;;; init-custom.el --- -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
-(setq package-archives '(("gnu"   . "http://mirrors.163.com/elpa/gnu/")
-                         ("melpa" . "http://mirrors.163.com/elpa/melpa/")))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-(package-initialize)
+(let ((custom-example-file
+       (expand-file-name "custom-example.el" user-emacs-directory)))
+  (if (and (file-exists-p custom-example-file)
+           (not (file-exists-p custom-file)))
+      (copy-file custom-example-file custom-file)))
+
+(if (file-exists-p custom-file)
+    (load-file custom-file))
 
 (provide 'init-custom)
+;;; init-custom.el ends here
