@@ -22,6 +22,10 @@
                       charset (font-spec :family "WenQuanYi Micro Hei"
                                          :height 180))))
 
+(use-package display-line-numbers
+  :ensure nil
+  :hook (prog-mode . display-line-numbers-mode))
+
 (use-package doom-themes
   :config
   ;; Global settings (defaults)
