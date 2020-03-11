@@ -40,7 +40,7 @@
      (sqlite . t)
      )))
 
-;; (global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 (provide 'init-org)
 ;;; init-org.el ends here

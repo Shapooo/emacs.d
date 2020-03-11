@@ -9,7 +9,7 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1) )
 
-(when (display-graphic-p)
+(defun shapo/set-gui-font ()
   (set-face-attribute 'default nil
                       :family "Source Code Pro"
                       ;; :family "Cascadia Code"
@@ -21,6 +21,21 @@
     (set-fontset-font (frame-parameter nil 'font)
                       charset (font-spec :family "WenQuanYi Micro Hei"
                                          :height 180))))
+(when (display-graphic-p)
+  (shapo/set-gui-font))
+(add-hook 'server-after-make-frame-hook 'shapo/set-gui-font)
+
+;; (set-face-attribute 'default nil
+;;                     :family "Source Code Pro"
+;;                     ;; :family "Cascadia Code"
+;;                     :height 180
+;;                     :weight 'normal
+;;                     :width 'normal)
+
+;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;   (set-fontset-font (frame-parameter nil 'font)
+;;                     charset (font-spec :family "WenQuanYi Micro Hei"
+;;                                        :height 180)))
 
 (use-package display-line-numbers
   :ensure nil
