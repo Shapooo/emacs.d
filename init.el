@@ -6,7 +6,7 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;; Constants
-(require 'benchmark-init)
+;; (require 'benchmark-init)
 (require 'init-const)
 
 ;; Functions
@@ -35,4 +35,5 @@
 (require 'init-lsp)
 (require 'init-org)
 (require 'init-sessions)
+(require 'init-python)
 ;;; init.el ends here

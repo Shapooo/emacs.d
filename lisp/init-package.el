@@ -30,5 +30,7 @@
 (use-package diminish)
 (use-package bind-key)
 
+(use-package auto-package-update)
+
 (provide 'init-package)
 ;;; init-package.el ends here

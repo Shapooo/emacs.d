@@ -122,12 +122,9 @@
     ;; (use-package ivy-yasnippet
     ;;   :commands ivy-yasnippet--preview
     ;;   :bind ())
-
-
-
-
-
-
+    (use-package avy
+      :bind ("C-:" . avy-goto-char)
+      ("M-g f" . avy-goto-line))
     )
   )
 

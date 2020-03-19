@@ -9,12 +9,9 @@
 
 (use-package lsp-mode
   :diminish
-  ;; :hook (prog-mode . (lambda ()
-  ;;                      (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode)
-  ;;                        (lsp-deferred))))
-  ;; :hook ((c-mode-common python-mode) . ((lsp-deferred)))
+  :hook (c-mode-common . (lambda () (lsp-deferred)))
+  ;; (python-mode . (lambda () (require 'lsp-python-ms) (lsp-deferred)))
   ;; :hook (c-common-mode . lsp-deferred-hook)
-  :hook ((c-mode-common python-mode) . (lambda () (lsp-deferred)))
   :bind (:map lsp-mode-map
               ("C-c C-d" . lsp-describe-thing-at-point))
   :init (setq lsp-auto-guess-root t        ; Detect project root
@@ -28,23 +25,26 @@
     :ensure nil
     :functions (lsp-format-buffer lsp-orgnize-imports)
     :init
-    (setq lsp-clients-python-library-directories '("/usr/local/" "/usr/"))
-    ;; (unless (executable-find "rls")
-    ;;   (setq lsp-rust-rls-server-command '("rustup" "run" "stable" "rls")))
-    )
+    (setq lsp-clients-python-library-directories '("/usr/local/" "/usr/")))
   :commands lsp
   )
 
 (use-package company-lsp
-  :config (push 'company-lsp company-backends))
+  :init (setq company-lsp-cache-candidates 'auto)
+  :config (push 'company-lsp company-backends)
+  (add-to-list 'company-lsp-filter-candidates '(mspyls)))
+
+(use-package lsp-python-ms
+  :hook (python-mode . (lambda () (require 'lsp-python-ms)
+                         (lsp)))
+  :init
+  (setq lsp-python-ms-executable "~/Git/python-language-server/output/bin/Debug/Microsoft.Python.LanguageServer"))
 
 (use-package lsp-ivy
   :after lsp-mode
   :bind (:map lsp-mode-map
               ([remap xref-find-apropos] . lsp-ivy-workspace-symbol)
               ("C-s-." . lsp-ivy-global-workspace-symbol)))
-
-
 
 (provide 'init-lsp)
 ;;; init-lsp.el ends here
