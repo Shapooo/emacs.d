@@ -107,7 +107,7 @@
       :bind (:map company-active-map
                   ([remap company-show-doc-buffer] . company-quickhelp-manual-begin))
       :hook (global-company-mode . company-quickhelp-mode)
-      :init (setq company-quickhelp-delay 0.5))))
+      :init (setq company-quickhelp-delay 1.2))))
 
 (provide 'init-company)
 ;;; init-company.el ends here
