@@ -36,4 +36,5 @@
 (require 'init-org)
 (require 'init-sessions)
 (require 'init-python)
+(require 'init-git)
 ;;; init.el ends here
