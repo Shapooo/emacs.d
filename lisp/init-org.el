@@ -17,6 +17,8 @@
            "* %? \n%U\n%a\n")
           ("j" "journeal" entry (file "~/Note/journal.org")
            "* %t\n")
+          ("m" "memo" entry (file "~/Note/memo.org")
+           "* %t %a\n")
           ))
   :config
   (org-babel-do-load-languages

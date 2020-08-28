@@ -6,11 +6,13 @@
 
 (require 'package)
 
-(setq package-archives '(("gnu"   . "http://mirrors.163.com/elpa/gnu/")
-                         ("melpa" . "http://mirrors.163.com/elpa/melpa/")))
+;; (setq package-archives '(("gnu"   . "http://mirrors.163.com/elpa/gnu/")
+;;                          ("melpa" . "http://mirrors.163.com/elpa/melpa/")))
 ;; (setq package-archives '(("gnu"   . "~/elpa/")
 ;;                          ("melpa" . "~/elpa/")))
 
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
 

@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(setq gc-cons-threshold 100000000)
+
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;; Constants
 ;; (require 'benchmark-init)
@@ -37,4 +39,5 @@
 (require 'init-sessions)
 (require 'init-python)
 (require 'init-git)
+(require 'init-dired)
 ;;; init.el ends here

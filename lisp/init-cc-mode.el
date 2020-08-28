@@ -7,16 +7,21 @@
 
 (use-package cc-mode
   :ensure nil
-  :hook (c-mode-common . (lambda () (c-set-style "gnu")
-                           (setq c-basic-offset 2)
-                           ;; (c-toggle-hungry-state t)
-                           ))
-  ;; :init (setq-default c-basic-offset 2)
+  :init
+  (setq-default c-basic-offset 2)
+  (setq c-default-style '((java-mode . "java")
+                          (awk-mode . "awk")
+                          (other . "linux")))
+
   :config
   (use-package modern-cpp-font-lock
     :diminish
     :init (modern-c++-font-lock-global-mode t))
   (setq c-auto-newline nil))
+
+;; (use-package clang-format
+;;   :init
+;;   (setq clang-format-style-option "mozilla"))
 
 (use-package counsel-gtags
   :diminish
@@ -28,15 +33,11 @@
               ("M-," . counsel-gtags-go-backward)))
 
 (use-package cmake-mode
-  ;; :config
-  ;; (use-package company-cmake
-  ;;   :after (company)
-  ;;   :config
-  ;;   (add-hook 'cmake-mode-hook (lambda () (push '))))
-  )
+  :hook (cmake-mode .  (lambda ()
+                         (add-to-list 'company-backends 'company-cmake))))
 
-(add-hook 'cmake-mode-hook (lambda ()
-                             (add-to-list 'company-backends 'company-cmake)))
+;; (add-hook 'cmake-mode-hook (lambda ()
+;;                              (add-to-list 'company-backends 'company-cmake)))
 
 (provide 'init-cc-mode)
 ;;; init-cc-mode.el ends here

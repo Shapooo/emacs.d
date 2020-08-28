@@ -14,25 +14,36 @@
   ;; :hook (c-common-mode . lsp-deferred-hook)
   :bind (:map lsp-mode-map
               ("C-c C-d" . lsp-describe-thing-at-point))
-  :init (setq lsp-auto-guess-root t        ; Detect project root
-              lsp-keep-workspace-alive nil ; Auto-kill LSP server
-              lsp-prefer-flymake nil       ; Use lsp-ui and flycheck
+  :init
+  (setq lsp-auto-guess-root t           ; Detect project root
+        lsp-keep-workspace-alive nil    ; Auto-kill LSP server
+        lsp-prefer-flymake nil          ; Use lsp-ui and flycheck
 
-              flymake-fringe-indecator-position 'right-fringe)
+        flymake-fringe-indecator-position 'right-fringe
+        lsp-modeline-diagnostics-enable nil
+        ;; lsp-modeline-code-actions-segments nil
+        lsp-idle-delay 0.500)
   :config
-  ;; Configure LSP clients
-  (use-package lsp-clients
-    :ensure nil
-    :functions (lsp-format-buffer lsp-orgnize-imports)
-    :init
-    (setq lsp-clients-python-library-directories '("/usr/local/" "/usr/")))
-  :commands lsp
-  )
+  (setq lsp-clients-clangd-args
+        '("--header-insertion=never"
+          "-log=error"
+          "--clang-tidy"
+          "--fallback-style=mozilla"
+          "--completion-style=bundled"))
 
-(use-package company-lsp
-  :init (setq company-lsp-cache-candidates 'auto)
-  :config (push 'company-lsp company-backends)
-  (add-to-list 'company-lsp-filter-candidates '(mspyls)))
+
+  ;; Configure LSP clients
+  ;; (use-package lsp-clients
+  ;;   :ensure nil
+  ;;   :functions (lsp-format-buffer lsp-orgnize-imports)
+  ;;   :init
+  ;;   (setq lsp-clients-python-library-directories '("/usr/local/" "/usr/")))
+  :commands lsp)
+
+;; (use-package company-lsp
+;;   :init (setq company-lsp-cache-candidates 'auto)
+;;   :config (push 'company-lsp company-backends)
+;;   (add-to-list 'company-lsp-filter-candidates '(mspyls)))
 
 (use-package lsp-python-ms
   :hook (python-mode . (lambda () (require 'lsp-python-ms)
