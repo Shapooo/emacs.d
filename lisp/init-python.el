@@ -57,6 +57,7 @@
     (exec-path-from-shell-copy-env "PYTHONPATH"))
   ;; Live Coding in Python
   (use-package live-py-mode)
+  (use-package pyvenv)
 
   ;; Format using YAPF
   ;; Install: pip install yapf

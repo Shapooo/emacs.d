@@ -6,13 +6,8 @@
 
 (require 'package)
 
-;; (setq package-archives '(("gnu"   . "http://mirrors.163.com/elpa/gnu/")
-;;                          ("melpa" . "http://mirrors.163.com/elpa/melpa/")))
-;; (setq package-archives '(("gnu"   . "~/elpa/")
-;;                          ("melpa" . "~/elpa/")))
-
-(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+(setq package-archives '(("gnu"   . "http://mirrors.163.com/elpa/gnu/")
+                         ("melpa" . "http://mirrors.163.com/elpa/melpa/")))
 (package-initialize)
 
 
@@ -22,7 +17,6 @@
 
 (eval-and-compile
   (setq use-package-always-ensure t)
-  ;; (setq use-package-always-defer t)
   (setq use-package-expand-minimally t)
   (setq use-package-enable-imenu-support t))
 

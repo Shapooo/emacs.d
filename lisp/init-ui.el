@@ -12,7 +12,6 @@
 (defun shapo/set-gui-font ()
   (set-face-attribute 'default nil
                       :family "Source Code Pro"
-                      ;; :family "Cascadia Code"
                       :height 180
                       :weight 'normal
                       :width 'normal)
@@ -24,18 +23,6 @@
 (when (display-graphic-p)
   (shapo/set-gui-font))
 (add-hook 'server-after-make-frame-hook 'shapo/set-gui-font)
-
-;; (set-face-attribute 'default nil
-;;                     :family "Source Code Pro"
-;;                     ;; :family "Cascadia Code"
-;;                     :height 180
-;;                     :weight 'normal
-;;                     :width 'normal)
-
-;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;   (set-fontset-font (frame-parameter nil 'font)
-;;                     charset (font-spec :family "WenQuanYi Micro Hei"
-;;                                        :height 180)))
 
 (use-package display-line-numbers
   :ensure nil
@@ -51,15 +38,13 @@
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
 
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  ;; (doom-themes-neotree-config)
-  ;; or for treemacs users
-  ;; (setq doom-themes-treemacs-theme "doom-colors")
-                                        ; use the colorful treemacs theme
-  ;; (doom-themes-treemacs-config)
-
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+
+;; (use-package all-the-icons
+;;   :if (display-graphic-p)
+;;   :init (unless (or sys/win32p (font-installed-p "all-the-icons"))
+;;           (all-the-icons-install-fonts t)))
 
 (provide 'init-ui)
 ;;; init-ui.el ends here
