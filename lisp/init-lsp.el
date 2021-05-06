@@ -42,7 +42,9 @@
               ([remap xref-find-apropos] . lsp-ivy-workspace-symbol)
               ("C-s-." . lsp-ivy-global-workspace-symbol)))
 
-(use-package ccls)
+(use-package ccls
+  :hook ((c-mode c++-mode) .
+         (lambda () (require 'ccls))))
 
 (provide 'init-lsp)
 ;;; init-lsp.el ends here
