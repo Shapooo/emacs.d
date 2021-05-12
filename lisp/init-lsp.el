@@ -29,12 +29,17 @@
 
   :commands lsp)
 
-(use-package lsp-python-ms
-  :hook (python-mode . (lambda () (require 'lsp-python-ms)
-                         (lsp)))
-  :init
-  (setq lsp-python-ms-executable "~/Git/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
-  )
+(use-package lsp-pyright
+  :preface
+  (defun lsp-pyright-format-buffer ()
+    (interactive)
+    (when (and (executable-find "yapf") buffer-file-name)
+      (call-process "yapf" nil nil nil "-i" buffer-file-name)))
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (add-hook 'after-save-hook #'lsp-pyright-format-buffer t t)))
+  :init (when (executable-find "python3")
+          (setq lsp-pyright-python-executable-cmd "python3")))
 
 (use-package lsp-ivy
   :after lsp-mode
