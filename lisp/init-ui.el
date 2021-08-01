@@ -24,9 +24,9 @@
   (shapo/set-gui-font))
 (add-hook 'server-after-make-frame-hook 'shapo/set-gui-font)
 
-(use-package display-line-numbers
-  :ensure nil
-  :hook (prog-mode . display-line-numbers-mode))
+;; (use-package display-line-numbers
+;;   :ensure nil
+;;   :hook (prog-mode . display-line-numbers-mode))
 
 (use-package doom-themes
   :config

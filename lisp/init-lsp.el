@@ -9,14 +9,15 @@
 
 (use-package lsp-mode
   :diminish
-  :hook (c-mode-common . (lambda () (lsp-deferred)))
+  :hook ((c-mode-common haskell-mode) . (lambda () (lsp-deferred)))
   :bind (:map lsp-mode-map
               ("C-c C-d" . lsp-describe-thing-at-point))
   :init
   (setq lsp-auto-guess-root t           ; Detect project root
         lsp-keep-workspace-alive nil    ; Auto-kill LSP server
         lsp-prefer-flymake nil          ; Use lsp-ui and flycheck
-
+        ;; lsp-diagnostics-mode nil
+        ;; lsp-modeline-diagnostics-enable
         flymake-fringe-indecator-position 'right-fringe
         lsp-idle-delay 0.500)
   :config
@@ -51,5 +52,8 @@
   :hook ((c-mode c++-mode) .
          (lambda () (require 'ccls))))
 
+(use-package lsp-haskell
+  :after lsp-mode
+  :hook (haskell-mode . (lambda () (require 'lsp-haskell))))
 (provide 'init-lsp)
 ;;; init-lsp.el ends here
