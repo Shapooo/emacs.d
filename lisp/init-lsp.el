@@ -9,7 +9,7 @@
 
 (use-package lsp-mode
   :diminish
-  :hook ((c-mode-common haskell-mode) . (lambda () (lsp-deferred)))
+  :hook ((c-mode-common haskell-mode rust-mode) . (lambda () (lsp-deferred)))
   :bind (:map lsp-mode-map
               ("C-c C-d" . lsp-describe-thing-at-point))
   :init
@@ -27,6 +27,8 @@
           "--clang-tidy"
           "--fallback-style=mozilla"
           "--completion-style=bundled"))
+
+  (setq lsp-rust-analyzer-completion-auto-import-enable nil)
 
   :commands lsp)
 
