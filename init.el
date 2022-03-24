@@ -41,4 +41,5 @@
 (require 'init-python)
 (require 'init-git)
 (require 'init-dired)
+(require 'init-latex)
 ;;; init.el ends here
