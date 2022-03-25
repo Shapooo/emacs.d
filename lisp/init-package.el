@@ -4,6 +4,11 @@
 
 ;;; Code:
 
+(require 'init-const)
+(require 'init-custom)
+(require 'init-funcs)
+
+
 (require 'package)
 
 (setq package-archives '(("gnu"   . "http://mirrors.163.com/elpa/gnu/")

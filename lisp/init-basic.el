@@ -3,9 +3,25 @@
 ;;; COmmentary:
 ;;; Code:
 
-(eval-when-compile
-  (require 'init-const)
-  (require 'init-custom))
+;; (eval-when-compile
+;;   (require 'init-const)
+;;   (require 'init-custom))
+
+(require 'init-const)
+(require 'init-custom)
+(require 'init-funcs)
+
+(with-no-warnings
+  (unless sys/macp
+    (setq command-line-ns-option-alist nil)) ; to be comprehended
+
+  ;; Increase how much is read from processes in a single chunk (default is 4kb)
+  (setq read-process-output-max #x10000) ; 64kb
+
+  ;; Don't ping things that look like domain names.
+  (setq ffap-machine-p-known 'reject)
+
+  )
 
 ;; Encoding
 ;; UTF-8 as the default coding system
@@ -15,6 +31,7 @@
 ;; Explicitly set the prefered coding systems to avoid annoying prompt
 ;; from emacs (especially on Microsoft Windows)
 (prefer-coding-system 'utf-8)
+;; (setq locale-coding-system 'uft-8)
 
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -77,6 +94,9 @@
     (setq show-trailing-whitespace t)
     (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)))
 
+(use-package so-long
+  :hook (after-init . global-so-long-mode))
+
 ;; Mouse & Smooth Scroll
 ;; Scroll one line at a time (less "jumpy" than defaults)
 (when (display-graphic-p)
@@ -97,7 +117,7 @@
       inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
       delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
       make-backup-files nil             ; Forbide to make backup files
-      ;; auto-save-default nil             ; Disable auto save
+      auto-save-default nil             ; Disable auto save
 
       uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
       adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"

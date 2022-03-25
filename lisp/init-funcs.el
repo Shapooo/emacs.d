@@ -2,8 +2,25 @@
 ;;; Commentary:
 ;;; Code:
 
-(eval-when-compile
-  (require 'init-const))
+(require 'cl-lib)
+
+(require 'init-const)
+(require 'init-custom)
+
+
+(unless (fboundp 'caadr)
+  (defalias 'caadr #'cl-caadr))
+
+
+
+;; (eval-when-compile
+;;   (require 'init-const))
+
+;; Font
+(defun font-installed-p (font-name)
+  "Check if font with FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
+
 
 ;; Dos2Unix/Unix2Dos
 (defun dos2unix ()
@@ -50,12 +67,23 @@ Same as `replace-string C-q C-m RET RET'."
       (set-visited-file-name new-name)
       (rename-buffer new-name))))
 
+(defun copy-file-name ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (if-let ((filename (if (equal major-mode 'dired-mode)
+                         default-directory
+                       (buffer-file-name))))
+      (progn
+        (kill-new filename)
+        (message "Copied '%s'" filename))
+    (warn "Current buffer is not attached to a file!")))
+
 ;; Reload configurations
 (defun reload-init-file ()
   "Reload Emacs configurations."
   (interactive)
   (load user-init-file))
-(defalias 'centaur-reload-init-file #'reload-init-file)
+;; (defalias 'centaur-reload-init-file #'reload-init-file)
 (global-set-key (kbd "C-c C-l") #'reload-init-file)
 
 (provide 'init-funcs)

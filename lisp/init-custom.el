@@ -4,14 +4,20 @@
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-;; (let ((custom-example-file
-;;        (expand-file-name "custom-example.el" user-emacs-directory)))
-;;   (if (and (file-exists-p custom-example-file)
-;;            (not (file-exists-p custom-file)))
-;;       (copy-file custom-example-file custom-file)))
+(defcustom shapo-proxy "127.0.0.1:10808"
+  "Set HTTP/HTTPS proxy."
+  :group 'convenience
+  :type 'string)
 
-;; (if (file-exists-p custom-file)
-;;     (load-file custom-file))
+(defcustom shapo-socks-proxy "127.0.0.1:10808"
+  "Set SOCKS proxy."
+  :group 'convenience
+  :type 'string)
+
+(defcustom shapo-server t
+  "Enable `server-mode' or not."
+  :group 'convenience
+  :type 'boolean)
 
 (provide 'init-custom)
 ;;; init-custom.el ends here

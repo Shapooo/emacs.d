@@ -2,8 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
-(eval-when-compile
-  (require 'init-const))
+;; (eval-when-compile
+;;   (require 'init-const))
+(require 'init-const)
+
+;; Delete selection if you insert
+(use-package delsel
+  :ensure nil
+  :hook (after-init . delete-selection-mode))
 
 (use-package nyan-mode
   :config
@@ -123,5 +129,5 @@
 ;;   ("C-c C-<" . mc/mark-all-like-this)
 ;;   ("C-S-c C-S-c" . mc/edit-lines))
 
-(provide 'init-editing-utils)
-;;; init-editing-utils.el ends here
+(provide 'init-edit)
+;;; init-edit.el ends here
