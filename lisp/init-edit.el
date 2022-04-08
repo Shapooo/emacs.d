@@ -27,31 +27,6 @@
          ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
   :hook (after-init . global-anzu-mode))
 
-;; Minor mode to aggressively keep your code always indented
-;; (use-package aggressive-indent
-;;   :diminish
-;;   :hook ((after-init . global-aggressive-indent-mode)
-;;          ;; FIXME: Disable in big files due to the performance issues
-;;          ;; https://github.com/Malabarba/aggressive-indent-mode/issues/73
-;;          (find-file . (lambda ()
-;;                         (if (> (buffer-size) (* 3000 80))
-;;                             (aggressive-indent-mode -1)))))
-;;   :config
-;;   ;; Disable in some modes
-;;   (dolist (mode '(asm-mode web-mode html-mode css-mode go-mode prolog-inferior-mode))
-;;     (push mode aggressive-indent-excluded-modes))
-
-;;   ;; Disable in some commands
-;;   (add-to-list 'aggressive-indent-protected-commands #'delete-trailing-whitespace t)
-
-;;   ;; Be slightly less aggressive in C/C++/C#/Java/Go/Swift
-;;   (add-to-list
-;;    'aggressive-indent-dont-indent-if
-;;    '(and (derived-mode-p 'c-mode 'c++-mode 'csharp-mode
-;;                          'java-mode 'go-mode 'swift-mode)
-;;          (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
-;;                              (thing-at-point 'line))))))
-
 ;; A comprehensive visual interface to diff & patch
 (use-package ediff
   :ensure nil
@@ -99,13 +74,6 @@
   :hook (after-init . show-paren-mode)
   :init (setq show-paren-delay 0))
 
-;; Hideshow
-;; (use-package hideshow
-;;   :ensure nil
-;;   :diminish hs-minor-mode
-;;   :bind (:map hs-minor-mode-map
-;;          ("C-`" . hs-toggle-hiding)))
-
 (global-set-key (kbd "RET") 'newline-and-indent)
 (defun sanityinc/newline-at-end-of-line ()
   "Move to end of line, enter a newline, and reindent."
@@ -122,12 +90,6 @@
 (use-package which-key
   :diminish
   :config (which-key-mode))
-
-;; (use-package multiple-cursors
-;;   :bind ("C-<" . mc/mark-previous-like-this)
-;;   ("C->" . mc/mark-next-like-this)
-;;   ("C-c C-<" . mc/mark-all-like-this)
-;;   ("C-S-c C-S-c" . mc/edit-lines))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here
