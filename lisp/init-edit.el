@@ -6,11 +6,6 @@
 ;;   (require 'init-const))
 (require 'init-const)
 
-;; Delete selection if you insert
-(use-package delsel
-  :ensure nil
-  :hook (after-init . delete-selection-mode))
-
 (use-package nyan-mode
   :config
   (nyan-mode))
