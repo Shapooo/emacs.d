@@ -36,8 +36,8 @@
   :preface
   (defun lsp-pyright-format-buffer ()
     (interactive)
-    (when (and (executable-find "yapf") buffer-file-name)
-      (call-process "yapf" nil nil nil "-i" buffer-file-name)))
+    (when (and (executable-find "black") buffer-file-name)
+      (call-process "black" nil nil nil buffer-file-name)))
   :config (setq lsp-pyright-venv-path "/home/shapo/.virtualenvs/")
   (setq lsp-pyright-venv-directory ".virtualenvs")
   :hook (python-mode . (lambda ()
