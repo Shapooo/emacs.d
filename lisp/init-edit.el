@@ -44,7 +44,8 @@
 (use-package hungry-delete
   :diminish
   :hook (after-init . global-hungry-delete-mode)
-  :config (setq-default hungry-delete-chars-to-skip " \t\f\v"))
+  :config (setq-default hungry-delete-chars-to-skip " \t\f\v")
+  (add-to-list 'hungry-delete-except-modes 'minibuffer-mode))
 
 (use-package mwim
   :bind (([remap move-beginning-of-line] . mwim-beginning-of-code-or-line)
