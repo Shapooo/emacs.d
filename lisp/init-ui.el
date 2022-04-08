@@ -19,7 +19,9 @@
                                :family "Source Han Sans"
                                :height 160)))
   (set-fontset-font "fontset-default"
-                    'symbol (font-spec :family "Source Code Pro")))
+                    'symbol (font-spec :family "Noto Emoji"))
+  (set-fontset-font "fontset-default"
+                    'symbol (font-spec :family "Noto Color Emoji") nil 'append))
 
 (when (display-graphic-p)
   (shapo/set-gui-font))
