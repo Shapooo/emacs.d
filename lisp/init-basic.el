@@ -21,6 +21,12 @@
   ;; Don't ping things that look like domain names.
   (setq ffap-machine-p-known 'reject)
 
+  (use-package gcmh
+    :diminish
+    :init
+    (setq gcmh-idle-delay 5
+          gcmh-high-cons-threshold #x1000000)
+    (gcmh-mode 1))
   )
 
 ;; Encoding
