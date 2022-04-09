@@ -61,6 +61,7 @@ Otherwise the startup will be very slow."
 ;; Programming Language
 (require 'init-cc-mode)
 (require 'init-latex)
+(require 'init-haskell)
 (require 'init-lisp)
 (require 'init-rust)
 (require 'init-python)
