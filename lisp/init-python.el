@@ -59,11 +59,8 @@
   (use-package live-py-mode)
   (use-package pyvenv)
 
-  ;; Format using YAPF
-  ;; Install: pip install yapf
-  (use-package yapfify
-    :diminish yapf-mode
-    :hook (python-mode . yapf-mode))
+  (use-package blacken
+    :diminish)
 
   (use-package pip-requirements))
 

@@ -34,16 +34,17 @@
 
 (use-package lsp-pyright
   :preface
-  (defun lsp-pyright-format-buffer ()
-    (interactive)
-    (when (and (executable-find "black") buffer-file-name)
-      (call-process "black" nil nil nil buffer-file-name)))
+  ;; (defun lsp-pyright-format-buffer ()
+  ;;   (interactive)
+  ;;   (when (and (executable-find "black") buffer-file-name)
+  ;;     (call-process "black" nil nil nil buffer-file-name)))
   :config (setq lsp-pyright-venv-path "/home/shapo/.virtualenvs/")
   (setq lsp-pyright-venv-directory ".virtualenvs")
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp-deferred)
-                         (add-hook 'after-save-hook #'lsp-pyright-format-buffer t t)))
+                         ;; (add-hook 'after-save-hook #'lsp-pyright-format-buffer t t)
+                         ))
   :init (when (executable-find "python3")
           (setq lsp-pyright-python-executable-cmd "python3")))
 
