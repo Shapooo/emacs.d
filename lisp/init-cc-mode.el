@@ -12,16 +12,10 @@
   (setq c-default-style '((java-mode . "java")
                           (awk-mode . "awk")
                           (other . "linux")))
-
   :config
   (use-package modern-cpp-font-lock
     :diminish
-    :init (modern-c++-font-lock-global-mode t))
-  (setq c-auto-newline nil))
-
-;; (use-package clang-format
-;;   :init
-;;   (setq clang-format-style-option "mozilla"))
+    :init (modern-c++-font-lock-global-mode t)))
 
 (use-package counsel-gtags
   :diminish
@@ -31,13 +25,6 @@
               ("M-r" . counsel-gtags-find-reference)
               ("M-s" . counsel-gtags-find-symbol)
               ("M-," . counsel-gtags-go-backward)))
-
-(use-package cmake-mode
-  :hook (cmake-mode .  (lambda ()
-                         (add-to-list 'company-backends 'company-cmake))))
-
-;; (add-hook 'cmake-mode-hook (lambda ()
-;;                              (add-to-list 'company-backends 'company-cmake)))
 
 (provide 'init-cc-mode)
 ;;; init-cc-mode.el ends here

@@ -30,7 +30,7 @@
           (read-expression-history  . 60)
           (regexp-history           . 60)
           (regexp-search-ring       . 20)
-          register-alist
+          ;; register-alist
           (search-ring              . 20)
           (shell-command-history    . 50)
           tags-file-name

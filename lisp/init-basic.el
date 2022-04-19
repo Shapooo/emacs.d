@@ -3,10 +3,6 @@
 ;;; COmmentary:
 ;;; Code:
 
-;; (eval-when-compile
-;;   (require 'init-const)
-;;   (require 'init-custom))
-
 (require 'init-const)
 (require 'init-custom)
 (require 'init-funcs)
@@ -21,13 +17,13 @@
   ;; Don't ping things that look like domain names.
   (setq ffap-machine-p-known 'reject)
 
+  ;; Garbage Collector Magic Hack
   (use-package gcmh
     :diminish
     :init
     (setq gcmh-idle-delay 5
           gcmh-high-cons-threshold #x1000000)
-    (gcmh-mode 1))
-  )
+    (gcmh-mode 1)))
 
 ;; Encoding
 ;; UTF-8 as the default coding system
@@ -52,11 +48,12 @@
 (setq locale-coding-system 'utf-8
       default-process-coding-system '(utf-8 . utf-8))
 
-;; History
+;; Save last cursor place
 (use-package saveplace
   :ensure nil
   :hook (after-init . save-place-mode))
 
+;; Save recentf files
 (use-package recentf
   :ensure nil
   :hook (after-init . recentf-mode)
@@ -69,6 +66,7 @@
                 (lambda (file) (file-in-directory-p file package-user-dir))))
   :config (push (expand-file-name recentf-save-file) recentf-exclude))
 
+;; Save minibuffer histories
 (use-package savehist
   :ensure nil
   :hook (after-init . savehist-mode)

@@ -7,8 +7,7 @@
 
 (use-package company
   :diminish
-  :defines (company-dabbrev-ignore-case company-dabbrev-downcase ;; company-c-headers
-                                        )
+  :defines (company-dabbrev-ignore-case company-dabbrev-downcase)
   :commands company-abort
   :bind (("M-/" . company-complete)
          ("<backtab>" . company-yasnippet)
