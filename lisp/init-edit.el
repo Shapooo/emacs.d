@@ -65,6 +65,10 @@
   :hook ((prog-mode . subword-mode)
          (minibuffer-setup . subword-mode)))
 
+(use-package abbrev
+  :ensure nil
+  :diminish)
+
 (use-package show-paren
   :ensure nil
   :hook (after-init . show-paren-mode)
