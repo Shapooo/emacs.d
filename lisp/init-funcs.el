@@ -86,5 +86,22 @@ Same as `replace-string C-q C-m RET RET'."
 ;; (defalias 'centaur-reload-init-file #'reload-init-file)
 (global-set-key (kbd "C-c C-l") #'reload-init-file)
 
+(defun lc-format-testcase ()
+  "Format leetcode testcase to match specific PL syntax."
+  (interactive)
+  (if (region-active-p)
+      (let* ((from (region-beginning))
+             (to (region-end))
+             (testcase-string (buffer-substring-no-properties from to)))
+
+        (setq lang-string (cond ((eq 'rustic-mode major-mode) "rust")
+                                ((eq 'c++-mode major-mode) "cpp")
+                                ("")))
+        (setq output-string (shell-command-to-string (format "python ~/.config/emacs/lisp/leetcode-formater.py '%s' '%s'" lang-string testcase-string)))
+        (save-excursion (delete-region from to)
+                        (goto-char from)
+                        (insert output-string)))
+    nil))
+
 (provide 'init-funcs)
-;;; init-funcs ends here
+;;; init-funcs.el ends here
