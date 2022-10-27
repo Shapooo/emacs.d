@@ -43,7 +43,7 @@ def format_rust_testcase(input: str) -> str:
                 s = s[6:]
             else:
                 s = s[3:]
-            s = "let" + s
+            s = "let " + s
             s = re.sub(r"\[", "vec![", s)
             s = re.sub(r", (\w) =", r"; let \1 =", s)
             s = re.sub(r'(".*")', r"\1.into()", s)
