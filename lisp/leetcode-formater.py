@@ -40,14 +40,14 @@ def format_rust_testcase(input: str) -> str:
             return "// " + s
         else:
             if s.startswith("Input"):
-                s = s[6:]
+                s = s[7:]
             else:
                 s = s[3:]
-            s = "let " + s
             s = re.sub(r"\[", "vec![", s)
-            s = re.sub(r", (\w) =", r"; let \1 =", s)
-            s = re.sub(r'(".*")', r"\1.into()", s)
-            s = s + ";"
+            s = re.sub(r", (\w+) =", r"; let \1 =", s)
+            s = re.sub(r"[^t] (\w+) =", r"; let \1 =", s)
+            s = re.sub(r'(".*?")', r"\1.into()", s)
+            s = "let " + s + ";"
             return s
 
     output = "\n".join(
