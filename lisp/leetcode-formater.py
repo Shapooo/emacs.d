@@ -48,6 +48,11 @@ def format_rust_testcase(input: str) -> str:
             s = re.sub(r"[^t] (\w+) =", r"; let \1 =", s)
             s = re.sub(r'(".*?")', r"\1.into()", s)
             s = "let " + s + ";"
+            variables = re.findall(r"let \w+", s)
+            for var in variables:
+                snake = camel_to_snake(var[4:])
+                s = s.replace(var[4:], snake)
+
             return s
 
     output = "\n".join(
@@ -58,6 +63,10 @@ def format_rust_testcase(input: str) -> str:
         ]
     )
     return output
+
+
+def camel_to_snake(s: str):
+    return "".join(["_" + i.lower() if i.isupper() else i for i in s]).lstrip("_")
 
 
 def main():
