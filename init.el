@@ -66,5 +66,6 @@ Otherwise the startup will be very slow."
 (require 'init-rust)
 (require 'init-python)
 (require 'init-go)
+(require 'init-dap)
 
 ;;; init.el ends here
