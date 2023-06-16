@@ -1,5 +1,7 @@
-;;; init-ivy.el --- -*- lexical-binding: t -*-
+;;; init-ivy.el --- Initialize ivy configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
+;;  Ivy configurations.
+
 ;;; Code:
 
 (use-package counsel
@@ -111,22 +113,18 @@
     (use-package amx
       :init (setq amx-history 20))
 
+    ;; Integrate yasnippet
+    (use-package ivy-yasnippet
+      :bind ("C-c C-y" . ivy-yasnippet))
+
     ;; Better sorting and filtering
     (use-package prescient
       :commands prescient-persist-mode
       :init
       (setq prescient-filter-method '(literal regexp initialism fuzzy))
       (prescient-persist-mode 1))
-
-    ;; Integrate yasnippet
-    ;; (use-package ivy-yasnippet
-    ;;   :commands ivy-yasnippet--preview
-    ;;   :bind ())
-    (use-package avy
-      :bind ("C-:" . avy-goto-char)
-      ("M-g f" . avy-goto-line))
     )
   )
 
-(provide 'init-ivy)
-;;; init-ivy ends here
+  (provide 'init-ivy)
+;;; init-ivy.el ends here

@@ -3,6 +3,7 @@
 ;;; Code:
 
 (use-package ibuffer
+  :ensure nil
   :bind ("C-x C-b" . ibuffer))
 
 (provide 'init-ibuffer)

@@ -9,12 +9,9 @@
 
 ;; Rust
 
-(use-package rustic
-  :config
-  (setq rustic-analyzer-command '("~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer"))
-  )
+(use-package rustic)
 
-;; (use-package rust-playground)
+(use-package rust-playground)
 
 (provide 'init-rust)
 

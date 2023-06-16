@@ -16,11 +16,19 @@
 (global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
 
 (use-package winner
-  ;; :config
-  ;; (add-hook 'after-init-hook 'winner-mode)
   :bind (("C-c u" . winner-undo)
          ("C-c r" . winner-redo))
-  :hook (after-init . winner-mode))
+  :hook (after-init . winner-mode)
+  :init (setq winner-boring-buffers '("*Completions*"
+                                      "*Compile-Log*"
+                                      "*inferior-lisp*"
+                                      "*Fuzzy Completions*"
+                                      "*Apropos*"
+                                      "*Help*"
+                                      "*cvs*"
+                                      "*Buffer List*"
+                                      "*Ibuffer*"
+                                      "*esh command on file*")))
 
 (use-package switch-window
   :diminish

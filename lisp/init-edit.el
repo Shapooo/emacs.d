@@ -2,13 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-;; (eval-when-compile
-;;   (require 'init-const))
 (require 'init-const)
+(require 'init-funcs)
 
 (use-package nyan-mode
-  :config
-  (nyan-mode))
+  :hook (after-init . nyan-mode))
 
 (use-package rainbow-delimiters
   :config
@@ -40,6 +38,10 @@
   :hook (after-init . electric-pair-mode)
   :init (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit))
 
+;; Increase selected region by semantic units
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+
 ;; Hungry deletion
 (use-package hungry-delete
   :diminish
@@ -58,16 +60,18 @@
   :config (setq global-auto-revert-non-file-buffers t
                 auto-revert-verbose nil))
 
+(use-package avy
+  :bind (("C-:" . avy-goto-char-2))
+  :hook (after-init . avy-setup-default)
+  :config (setq avy-all-windows nil
+                avy-all-windows-alt t))
+
 ;; Handling capitalized subwords in a nomenclature
 (use-package subword
   :ensure nil
   :diminish
   :hook ((prog-mode . subword-mode)
          (minibuffer-setup . subword-mode)))
-
-(use-package abbrev
-  :ensure nil
-  :diminish)
 
 (use-package show-paren
   :ensure nil
@@ -90,6 +94,18 @@
 (use-package which-key
   :diminish
   :config (which-key-mode))
+
+;; Open files as another user
+(use-package sudo-edit)
+
+;; Narrow/Widen
+(use-package fancy-narrow
+  :diminish
+  :hook (after-init . fancy-narrow-mode))
+
+;; Hanlde minified code
+(use-package so-long
+  :hook (after-init . global-so-long-mode))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here

@@ -6,16 +6,40 @@
 (when (version< emacs-version "25.1")
   (error "This requires Emacs 25.1 and above!"))
 
+;;
 ;; Speed up startup
+;;
+
+;; Defer garbage collection further back in the startup process
+(setq gc-cons-threshold most-positive-fixnum)
+
+;; Don't pass case-insensitive to `auto-mode-alist'
 (setq auto-mode-case-fold nil)
 
-(setq gc-cons-threshold most-positive-fixnum
-      gc-cons-percentage 0.5)
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            "Recover GC values after startup."
-            (setq gc-cons-percentage 0.1
-                  gc-cons-threshold (* 50 1024 1024))))
+(unless (or (daemonp) noninteractive init-file-debug)
+  ;; Prevent flashing of messages at startup
+  (when (display-graphic-p)
+    (setq-default inhibit-redisplay t
+                  inhibit-message t)
+    (defun reset-inhibit-vars ()
+      (setq-default inhibit-redisplay nil
+                    inhibit-message nil)
+      (redraw-frame))
+    (add-hook 'window-setup-hook #'reset-inhibit-vars)
+    (define-advice startup--load-user-init-file (:after (&rest _) reset-inhibit-vars)
+      (and init-file-had-error (reset-inhibit-vars))))
+
+  ;; Suppress file handlers operations at startup
+  ;; `file-name-handler-alist' is consulted on each call to `require' and `load'
+  (let ((old-value file-name-handler-alist))
+    (setq file-name-handler-alist nil)
+    (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                "Recover file name handlers."
+                (setq file-name-handler-alist
+                      (delete-dups (append file-name-handler-alist old-value))))
+              101)))
 
 ;; Load path
 ;; Optimize: Force "lisp" and "site-lisp" at head to reduce the startup time.
@@ -42,7 +66,7 @@ Otherwise the startup will be very slow."
 (require 'init-package)
 
 ;; Preferences
-(require 'init-basic)
+(require 'init-base)
 
 (require 'init-ivy)
 (require 'init-company)
@@ -66,6 +90,8 @@ Otherwise the startup will be very slow."
 (require 'init-rust)
 (require 'init-python)
 (require 'init-go)
-(require 'init-dap)
+;; (require 'init-dap)
+
+
 
 ;;; init.el ends here

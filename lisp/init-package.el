@@ -8,15 +8,36 @@
 (require 'init-custom)
 (require 'init-funcs)
 
+;; Load `custom-file'
+(and (file-readable-p custom-file) (load custom-file))
 
-(require 'package)
+;; ;; Load custom-post file
+;; (defun load-custom-post-file ()
+;;   "Load custom-post file."
+;;   (cond ((file-exists-p centaur-custom-post-org-file)
+;;          (and (fboundp 'org-babel-load-file)
+;;               (org-babel-load-file centaur-custom-post-org-file)))
+;;         ((file-exists-p centaur-custom-post-file)
+;;          (load centaur-custom-post-file))))
+;; (add-hook 'after-init-hook #'load-custom-post-file)
 
-;; (setq package-archives '(("gnu"   . "http://mirrors.163.com/elpa/gnu/")
-;;                          ("melpa" . "http://mirrors.163.com/elpa/melpa/")))
-(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-(package-initialize)
+;; HACK: DO NOT save package-selected-packages to `custom-file'.
+;; https://github.com/jwiegley/use-package/issues/383#issuecomment-247801751
+(defun my-package--save-selected-packages (&optional value)
+  "Set `package-selected-packages' to VALUE but don't save to variable `custom-file'."
+  (when value
+    (setq package-selected-packages value))
+  (unless after-init-time
+    (add-hook 'after-init-hook #'my-package--save-selected-packages)))
+(advice-add 'package--save-selected-packages :override #'my-package--save-selected-packages)
 
+;; Set ELPA packages
+(set-package-archives shapo-package-archives nil nil t)
+
+;; Initialize packages
+(unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
+  (setq package-enable-at-startup nil)          ; To prevent initializing twice
+  (package-initialize))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -31,9 +52,8 @@
   (require 'use-package))
 
 (use-package diminish)
-(use-package bind-key)
-
-(use-package auto-package-update)
+;; (use-package bind-key)
+;; (use-package auto-package-update)
 
 (provide 'init-package)
 ;;; init-package.el ends here

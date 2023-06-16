@@ -11,20 +11,20 @@
   (setq-default c-basic-offset 2)
   (setq c-default-style '((java-mode . "java")
                           (awk-mode . "awk")
-                          (other . "linux")))
-  :config
-  (use-package modern-cpp-font-lock
-    :diminish
-    :init (modern-c++-font-lock-global-mode t)))
+                          (other . "linux"))))
 
-(use-package counsel-gtags
+(use-package modern-cpp-font-lock
   :diminish
-  :hook (c-mode-common . counsel-gtags-mode)
-  :bind (:map counsel-gtags-mode-map
-              ("M-t" . counsel-gtags-find-definition)
-              ("M-r" . counsel-gtags-find-reference)
-              ("M-s" . counsel-gtags-find-symbol)
-              ("M-," . counsel-gtags-go-backward)))
+  :init (modern-c++-font-lock-global-mode t))
+
+;; (use-package counsel-gtags
+;;   :diminish
+;;   :hook (c-mode-common . counsel-gtags-mode)
+;;   :bind (:map counsel-gtags-mode-map
+;;          ("M-t" . counsel-gtags-find-definition)
+;;          ("M-r" . counsel-gtags-find-reference)
+;;          ("M-s" . counsel-gtags-find-symbol)
+;;          ("M-," . counsel-gtags-go-backward)))
 
 (provide 'init-cc-mode)
 ;;; init-cc-mode.el ends here
