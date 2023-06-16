@@ -83,6 +83,7 @@ Otherwise the startup will be very slow."
 (require 'init-dired)
 
 ;; Programming Language
+(require 'init-prog)
 (require 'init-cc-mode)
 (require 'init-latex)
 (require 'init-haskell)

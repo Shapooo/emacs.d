@@ -4,7 +4,7 @@
 
 (use-package yasnippet
   :diminish yas-minor-mode
-  :hook (after-init . yas-global-mode))
+  :hook (prog-mode . yas-minor-mode))
 
 ;; Collection of yasnippet snippets
 (use-package yasnippet-snippets)

@@ -16,21 +16,12 @@
 (use-package lsp-mode
   :diminish
   :defines (lsp-diagnostics-disabled-modes lsp-clients-python-library-directories)
-  :autoload lsp-enable-which-key-integration
   :commands (lsp-format-buffer lsp-organize-imports lsp lsp-deferred)
   :hook ((prog-mode . (lambda ()
                         (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
                           (lsp-deferred))))
-         (lsp-mode . (lambda ()
-                       ;; Integrate `which-key'
-                       (lsp-enable-which-key-integration)
+         (rustic-mode .  lsp-inlay-hints-mode))
 
-                       ;; Format and organize imports
-                       ;; (when (and centaur-lsp-format-on-save
-                       ;;            (not (apply #'derived-mode-p centaur-lsp-format-on-save-ignore-modes)))
-                       ;;   (add-hook 'before-save-hook #'lsp-format-buffer t t)
-                       ;;   (add-hook 'before-save-hook #'lsp-organize-imports t t))
-                       )))
   :bind (:map lsp-mode-map
               ("C-c C-d" . lsp-describe-thing-at-point)
               ([remap xref-find-definitions] . lsp-find-definition)
@@ -43,24 +34,22 @@
         lsp-semantic-tokens-enable t
         lsp-progress-spinner-type 'progress-bar-filled
         lsp-modeline-code-actions-enable nil
-        ;; lsp-diagnostics-mode nil
-        ;; lsp-modeline-diagnostics-enable nil
         flymake-fringe-indecator-position 'right-fringe
         lsp-idle-delay 0.500
         lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)
 
         ;; For clients
         lsp-clients-python-library-directories '("/usr/local/" "/usr/"))
-  ;; :config
+  :config
   (setq lsp-clients-clangd-args
         '("--header-insertion=never"
           "-log=error"
           "--clang-tidy"
           "--fallback-style=mozilla"
           "--completion-style=bundled")
+        lsp-inlay-hint-enable t
         lsp-rust-analyzer-completion-auto-import-enable nil
         lsp-rust-analyzer-server-display-inlay-hints t
-        lsp-rust-analyzer-display-parameter-hints t
         lsp-rust-analyzer-display-chaining-hints t)
   )
 
@@ -171,5 +160,9 @@
 (use-package lsp-haskell
   :after lsp-mode
   :hook (haskell-mode . (lambda () (require 'lsp-haskell))))
+
+(use-package consult-lsp
+  :diminish)
+
 (provide 'init-lsp)
 ;;; init-lsp.el ends here
