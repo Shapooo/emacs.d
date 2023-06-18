@@ -3,6 +3,7 @@
 !.gitignore
 !init.el
 !custom-example.el
+!early-init.el
 *~
 \#*
 *\#
