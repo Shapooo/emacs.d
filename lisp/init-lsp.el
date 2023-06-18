@@ -33,6 +33,7 @@
 
         lsp-semantic-tokens-enable t
         lsp-progress-spinner-type 'progress-bar-filled
+        lsp-signature-render-documentation nil
         lsp-modeline-code-actions-enable nil
         flymake-fringe-indecator-position 'right-fringe
         lsp-idle-delay 0.500
