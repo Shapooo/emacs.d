@@ -38,6 +38,7 @@
         flymake-fringe-indecator-position 'right-fringe
         lsp-idle-delay 0.500
         lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)
+        lsp-ui-sideline-enable nil
 
         ;; For clients
         lsp-clients-python-library-directories '("/usr/local/" "/usr/"))
